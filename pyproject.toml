@@ -1,7 +1,57 @@
 [build-system]
-requires = ["setuptools>=46.4", "wheel", "setuptools_scm[toml]"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "TatSu"
+authors = [{name = "Juancarlo Añez", email = "apalala@gmail.com"}]
+maintainers = [{name = "Juancarlo Añez", email = "apalala@gmail.com"}]
+license = {text = "BSD-3-Clause-Attribution"}
+description = "TatSu takes a grammar in a variation of EBNF as input, and outputs a memoizing PEG/Packrat parser in Python."
+readme = "README.rst"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: BSD License",
+    "Natural Language :: English",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Environment :: Console",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Software Development :: Compilers",
+    "Topic :: Software Development :: Interpreters",
+    "Topic :: Text Processing :: General",
+]
+urls = {Homepage = "https://github.com/neogeny/tatsu"}
+requires-python = ">=3.10"
+dynamic = ["version"]
+
+[project.optional-dependencies]
+future-regex = ["regex"]
+testing = ["pytest-mypy"]
+
+[project.scripts]
+tatsu = "tatsu:main"
+g2e = "tatsu.g2e:main"
+
+[tool.setuptools]
+zip-safe = false
+include-package-data = true
+
+[tool.setuptools.packages]
+find = {namespaces = false}
+
+[tool.setuptools.dynamic]
+version = {attr = "tatsu.__version__"}
 
 [tool.setuptools_scm]
 write_to = "tatsu/_version.py"
 write_to_template = "__version__ = \"{version}\"\n"
+
+[tool.distutils.bdist_wheel]
+universal = 1
+
+[tool.aliases]
+test = "pytest"
